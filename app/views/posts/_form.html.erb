@@ -1,0 +1,36 @@
+<%= form_with(model: post) do |form| %>
+  <% if post.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :media, style: "display: block" %>
+    <%= form.hidden_field :media, value: post.media.signed_id if post.media.attached? %>
+    <%= form.file_field :media, direct_upload: true %>
+  </div>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.textarea :body %>
+  </div>
+
+  <div>
+    <%= form.label :scheduled_at, style: 'display: block' %>
+    <%#= form.datetime_field :scheduled_at, min: Time.current, include_seconds: false %>
+    <%#= form.datetime_select :scheduled_at, min: Time.now, order: %i(day month year), default: 15.minutes.since.localtime %>
+    <%= form.datetime_select :scheduled_at, min: Time.now, order: %i(day month year), default: 15.minutes.since %>
+    <%#= form.datetime_select :scheduled_at %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

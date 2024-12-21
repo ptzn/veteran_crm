@@ -1,0 +1,17 @@
+common: &common
+  app_name: Veteran CRM
+
+development:
+  <<: *common
+  telegram:
+    channel_id: "@kchstag"
+
+production:
+  <<: *common
+  telegram:
+    channel_id: "@kchstag"
+
+test:
+  <<: *common
+  telegram:
+    channel_id: "@kchstag"
