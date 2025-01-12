@@ -24,6 +24,15 @@ export default class extends Controller {
     this.dropzone.on("canceled", (file) => {
       file.controller && file.controller.xhr.abort()
     })
+
+    document.onpaste = function(event) {
+      const items = (event.clipboardData || event.originalEvent.clipboardData).items
+      for(const item of items) {
+        if( item.kind === 'file' ) {
+          this.dropzone.addFile(item.getAsFile())
+        }
+      }
+    }.bind(this)
   }
 
   get headers() {
@@ -116,6 +125,8 @@ class DirectUploadController {
     this.source.dropzone.emit("complete", this.file)
   }
 }
+
+// Global context
 
 function createDirectUploadController(source, file) {
   return new DirectUploadController(source, file)
