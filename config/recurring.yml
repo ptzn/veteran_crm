@@ -1,3 +1,14 @@
+default: &default
+  attachments_cleanup:
+    class: AttachmentsCleanupJob
+    schedule: at 3am every day
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
 # production:
 #   periodic_cleanup:
 #     class: CleanSoftDeletedRecordsJob

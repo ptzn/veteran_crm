@@ -17,18 +17,13 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Datetimepicker styles %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= render 'shared/menu' %>
-    <main role="main" class="col-9 pt-3 px-4">
+    <main role="main" class="container">
       <%# TODO: check it for login form %>
       <!-- <p class="notice"><%= notice %></p> -->
       <!-- <p class="alert"><%= alert %></p> -->

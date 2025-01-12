@@ -1,8 +1,10 @@
 <div id="<%= dom_id post %>">
-  <%- if post.media.attached? %>
-    <p>
-      <%= image_tag post.media.variant(:thumb) %>
-    </p>
+  <%- if post.attachments.attached? %>
+    <%- post.attachments.each do |attachment| %>
+      <p>
+        <%= image_tag attachment.variant(:thumb) %>
+      </p>
+    <%- end %>
   <%- end %>
 
   <p>

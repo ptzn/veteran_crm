@@ -1,4 +1,4 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with model: post do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -11,26 +11,88 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :media, style: "display: block" %>
-    <%= form.hidden_field :media, value: post.media.signed_id if post.media.attached? %>
-    <%= form.file_field :media, direct_upload: true %>
+  <div class="mb-3">
+    <%= form.label :attachments, style: "display: block" %>
+    <%#= form.hidden_field :attachments, value: post.attachments.signed_id if post.attachments.attached? %>
+
+    <!-- -------------------------------------------------- -->
+    <%# max_size ||= 10 %>
+    <%# max_files = 10 %>
+    <div class="dropzone dropzone-default dz-clickable" data-controller="attachments"
+         data-attachments-max-files=10
+         data-attachments-max-file-size=10>
+      <%= form.file_field :attachments, direct_upload: true, multiple: true, disabled: true, class: 'd-none', data: {attachments_target: 'input'} %>
+
+      <div class="dz-message needsclick drop-container">
+        <div class="message-container">
+          <div>
+            <a>Click to upload</a> or drag and drop your files here.
+          </div>
+          <!-- <div>Maximum file size <%#= max_size %> MB.</div> -->
+        </div>
+      </div>
+
+      <div id="dz-previews-container" data-attachments-target="previewsContainer" class="previews-container">
+        <% post.attachments.each do |attachment| %>
+           <div class="dz-preview dz-file-preview preview-file">
+             <%= form.hidden_field :attachments, value: attachment.signed_id, multiple: true %>
+
+             <div class="dz-progress"><div class="dz-upload" data-dz-uploadprogress style="width: 100%;"></div></div>
+
+             <i class="fa-light fa-file file-icon"></i>
+             <div class="dz-details file-details">
+               <div class="dz-filename"><span><%= attachment.filename %></span></div>
+               <!-- <div class="dz-size"><%#= localize_filesize(attachment.byte_size) %></div> -->
+             </div>
+
+             <i class="fa-light fa-times file-remove-icon" data-action="click->attachments#removeExisting"></i>
+           </div>
+         <% end %>
+      </div>
+      <div class="hidden">
+        <div data-attachments-target="previewTemplate">
+          <div class="dz-preview dz-file-preview preview-file">
+            <div class="dz-progress"><div class="dz-upload" data-dz-uploadprogress style="width: 0;"></div></div>
+
+            <i class="fa-light fa-file file-icon"></i>
+            <div class="dz-details file-details">
+              <div class="dz-filename"><span data-dz-name></span></div>
+              <div class="dz-size" data-dz-size></div>
+            </div>
+            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+
+            <i class="fa-light fa-times file-remove-icon" data-dz-remove></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <%= form.file_field :attachments, direct_upload: true %> -->
+    <!-- <div class="dropzone dropzone-default dz-clickable" data-controller="attachments"> -->
+    <!--   <%= form.file_field :attachments, direct_upload: true, data: {attachments_target: 'input'} %> -->
+
+    <!--   <div class="dz-message needsclick drop-container"> -->
+    <!--     <div class="message-container"> -->
+    <!--       <div> -->
+    <!--         <a>Click to upload</a> or drag and drop your files here. -->
+    <!--       </div> -->
+    <!--       <\!-- <div>Maximum file size <%#= max_size %> MB.</div> -\-> -->
+    <!--     </div> -->
+    <!--   </div> -->
+    <!-- </div> -->
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :body, style: "display: block" %>
-    <%= form.textarea :body %>
+    <%= form.text_area :body, class: "form-input" %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <%= form.label :scheduled_at, style: 'display: block' %>
-    <%#= form.datetime_field :scheduled_at, min: Time.current, include_seconds: false %>
-    <%#= form.datetime_select :scheduled_at, min: Time.now, order: %i(day month year), default: 15.minutes.since.localtime %>
-    <%= form.datetime_select :scheduled_at, min: Time.now, order: %i(day month year), default: 15.minutes.since %>
-    <%#= form.datetime_select :scheduled_at %>
+    <%= form.text_field :scheduled_at, data: {controller: 'datetime-picker'} %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

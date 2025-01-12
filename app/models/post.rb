@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
-  has_one_attached :media do |media|
-    media.variant :thumb, resize_to_limit: [300, 300] # preprocessed: true
+  has_many_attached :attachments do |attachment|
+    attachment.variant :thumb, resize_to_limit: [300, 300] # preprocessed: true
   end
+
+  has_many :telegram_responses, dependent: :delete_all
 
   def published?
     published_at.present?
@@ -18,5 +20,5 @@ end
 #  scheduled_at :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  job_id       :bigint
+#  job_id       :string
 #
