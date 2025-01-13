@@ -1,9 +1,12 @@
 class Post < ApplicationRecord
   has_many_attached :attachments do |attachment|
     attachment.variant :thumb, resize_to_limit: [300, 300] # preprocessed: true
+    attachment.variant :xthumb, resize_to_limit: [100, 100] # preprocessed: true
   end
 
   has_many :telegram_responses, dependent: :delete_all
+
+  scope :upcoming, -> { where.not(scheduled_at: nil).order(scheduled_at: :asc) }
 
   def published?
     published_at.present?

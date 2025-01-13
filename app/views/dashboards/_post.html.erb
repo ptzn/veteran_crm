@@ -1,0 +1,15 @@
+<div id="<%= dom_id post %>" class="card mb-3">
+  <div class="card-body">
+    <div class="text-secondary"><%= post.scheduled_at.to_fs(:human) %></div>
+    <%- if post.attachments.attached? %>
+      <%- post.attachments.each do |attachment| %>
+        <span>
+          <%= image_tag attachment.variant(:xthumb) %>
+        </span>
+      <%- end %>
+    <%- end %>
+    <div>
+      <%= post.body %>
+    </div>
+  </div>
+</div>

@@ -28,5 +28,7 @@ Rails.application.routes.draw do
   # end
 
   resources :posts
-  resource :dashboard, only: %i{show}
+  resource :dashboard, only: %i{show} do
+    get :upcoming_posts, on: :member
+  end
 end

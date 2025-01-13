@@ -15,7 +15,7 @@ class TelegramService::SendMessage < BaseService
       raw_response: result
     )
 
-    [result['ok'], result]
+    [!!result['ok'], result]
   end
 
   private

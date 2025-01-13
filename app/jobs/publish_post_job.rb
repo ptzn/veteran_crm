@@ -4,6 +4,8 @@ class PublishPostJob < ApplicationJob
   def perform(post)
     return if post.published?
 
-    TelegramService::SendMessage.call(post)
+    ok, = TelegramService::SendMessage.call(post)
+
+    post.broadcast_remove_to :upcoming_posts if ok
   end
 end

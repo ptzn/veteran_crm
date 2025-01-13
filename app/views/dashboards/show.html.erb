@@ -9,6 +9,8 @@
   </div>
 
   <div class="col-3">
-    LIST UPCOMING
+    <h2>Upcoming</h2>
+    <%= turbo_stream_from :upcoming_posts %>
+    <%= turbo_frame_tag :upcoming_posts, src: upcoming_posts_dashboard_path, lazy: true %>
   </div>
 </div>

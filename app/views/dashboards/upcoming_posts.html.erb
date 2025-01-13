@@ -1,0 +1,10 @@
+<h1>Upcoming Posts</h1>
+
+<%= turbo_frame_tag :upcoming_posts do %>
+  <% @posts.each do |post| %>
+    <%= render 'post', post: post %>
+    <!-- <p> -->
+    <!--   <%= link_to "Show this post", post %> -->
+    <!-- </p> -->
+  <% end %>
+<% end %>
