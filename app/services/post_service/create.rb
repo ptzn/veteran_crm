@@ -4,7 +4,7 @@ module PostService::Create
   def call(post_params)
     post = Post.create(post_params)
 
-    PostService::Schedule.call(post) if post.persisted?
+    PostService::Schedule.call(post) if post.persisted? && !post.draft?
 
     [post.persisted?, post]
   end

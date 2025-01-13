@@ -88,6 +88,11 @@
   </div>
 
   <div class="mb-3">
+    <%= form.check_box :draft %>
+    <%= form.label :draft %>
+  </div>
+
+  <div class="mb-3">
     <%= form.label :scheduled_at, style: 'display: block' %>
     <%= form.text_field :scheduled_at, data: {controller: 'datetime-picker'} %>
   </div>

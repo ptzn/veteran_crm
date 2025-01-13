@@ -19,6 +19,7 @@ end
 #
 #  id           :bigint           not null, primary key
 #  body         :text
+#  draft        :boolean          default(FALSE), not null
 #  published_at :datetime
 #  scheduled_at :datetime
 #  created_at   :datetime         not null

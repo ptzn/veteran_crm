@@ -59,6 +59,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.expect(post: [:body, :scheduled_at, attachments: []])
+    params.expect(post: [:body, :scheduled_at, :draft, attachments: []])
   end
 end
