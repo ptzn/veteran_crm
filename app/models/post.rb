@@ -6,7 +6,9 @@ class Post < ApplicationRecord
 
   has_many :telegram_responses, dependent: :delete_all
 
-  scope :upcoming, -> { where.not(scheduled_at: nil).order(scheduled_at: :asc) }
+  scope :not_draft, -> { where(draft: false) }
+  scope :unpublished, -> { where(published_at: nil) }
+  scope :upcoming, -> { not_draft.unpublished.where.not(scheduled_at: nil).order(scheduled_at: :asc) }
 
   def published?
     published_at.present?
