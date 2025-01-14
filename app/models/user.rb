@@ -1,23 +1,17 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  has_secure_password
+  has_many :sessions, dependent: :destroy
+
+  normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
 
 # == Schema Information
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  email                  :string           default(""), not null, indexed
-#  encrypted_password     :string           default(""), not null
-#  first_name             :string
-#  last_name              :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string           indexed
-#  username               :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id              :bigint           not null, primary key
+#  email_address   :string           not null, indexed
+#  password_digest :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #

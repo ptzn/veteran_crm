@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="row">
+    <div class="card p-0">
+      <div class="card-body">
+        <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
+        <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
+
+        <%= form_with url: session_path do |form| %>
+          <div class="mb-3">
+            <%= form.label :email %><br />
+            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :password %><br />
+            <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.submit "Sign in" %>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= link_to "Forgot password?", new_password_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
