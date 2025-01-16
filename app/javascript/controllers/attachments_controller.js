@@ -94,19 +94,19 @@ class DirectUploadController {
   }
 
   directUploadWillStoreFileWithXHR(xhr) {
-    this.bindProgressEvent(xhr)
+    //this.bindProgressEvent(xhr)
     this.emitDropzoneUploading()
   }
 
-  bindProgressEvent(xhr) {
-    this.xhr = xhr
-    this.xhr.upload.addEventListener("progress", event => this.uploadRequestDidProgress(event))
-  }
+  // bindProgressEvent(xhr) {
+  //   this.xhr = xhr
+  //   this.xhr.upload.addEventListener("progress", event => this.uploadRequestDidProgress(event))
+  // }
 
-  uploadRequestDidProgress(event) {
-    const progress = event.loaded / event.total * 100
-    document.querySelector(".dz-upload").style.width = `${progress}%`
-  }
+  // uploadRequestDidProgress(event) {
+  //   const progress = event.loaded / event.total * 100
+  //   document.querySelector(".dz-upload").style.width = `${progress}%`
+  // }
 
   emitDropzoneUploading() {
     this.file.status = Dropzone.UPLOADING
@@ -145,7 +145,6 @@ function createDropzone(controller) {
     acceptedFiles: controller.acceptedFiles,
     addRemoveLinks: false,
     autoQueue: false,
-    createImageThumbnails: false,
     previewsContainer: controller.previewsContainer,
     previewTemplate: controller.previewTemplate
   })
