@@ -1,0 +1,7 @@
+.draft-true td {
+  background-color: tint-color($secondary, 90%);
+}
+
+.published-true td {
+  background-color: tint-color($green, 85%);
+}

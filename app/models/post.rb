@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   has_many_attached :attachments do |attachment|
     attachment.variant :thumb, resize_to_limit: [300, 300] # preprocessed: true
     attachment.variant :xthumb, resize_to_limit: [100, 100] # preprocessed: true
+    attachment.variant :xxthumb, resize_to_limit: [50, 50] # preprocessed: true
   end
 
   has_many :telegram_responses, dependent: :delete_all
@@ -12,6 +13,10 @@ class Post < ApplicationRecord
 
   def published?
     published_at.present?
+  end
+
+  def scheduled?
+    scheduled_at.present?
   end
 end
 

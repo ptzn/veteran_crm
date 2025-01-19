@@ -9,6 +9,10 @@ module ApplicationHelper
     end)
   end
 
+  def bool_to_check(bool)
+    content_tag(:i, nil, class: 'mdi mdi-check') if bool
+  end
+
   private
 
   def menu_items

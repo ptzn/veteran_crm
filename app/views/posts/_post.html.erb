@@ -1,25 +1,20 @@
-<div id="<%= dom_id post %>">
-  <%- if post.attachments.attached? %>
-    <%- post.attachments.each do |attachment| %>
-      <p>
-        <%= image_tag attachment.variant(:thumb) %>
-      </p>
+<tr id="<%= dom_id post %>" class="draft-<%= post.draft? %> published-<%= post.published? %>">
+  <td><%= post.id %></td>
+  <td><%= bool_to_check(post.draft?) %></td>
+  <td><%= post.scheduled_at.to_fs(:human) if post.scheduled? %></td>
+  <td><%= post.published_at.to_fs(:human) if post.published? %></td>
+  <td>
+    <%- if post.attachments.attached? %>
+      <%- post.attachments.each do |attachment| %>
+        <span><%= image_tag attachment.variant(:xxthumb) %></span>
+      <%- end %>
     <%- end %>
-  <%- end %>
-
-  <p>
-    <strong>Body:</strong>
-    <%= post.body %>
-  </p>
-
-  <p>
-    <strong>Draft:</strong>
-    <%= post.draft? %>
-  </p>
-
-  <p>
-    <strong>Published:</strong>
-    <%= post.published_at %>
-  </p>
-
-</div>
+  </td>
+  <td><%= post.body.truncate(50) %></td>
+  <td>
+    <%= link_to "Show", post %> |
+    <%= link_to 'Edit', edit_post_path(post) %> |
+    <!-- <%= link_to "Destroy", post, method: :delete, data: {turbo_confirm: 'Are you sure?'} %> -->
+    <%= link_to "Destroy", post, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+  </td>
+</tr>

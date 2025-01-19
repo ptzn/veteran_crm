@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :load_post, except: %i{index new create}
 
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page])
   end
 
   def show
