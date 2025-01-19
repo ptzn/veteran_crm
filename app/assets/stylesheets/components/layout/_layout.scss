@@ -1,4 +1,4 @@
-@import "./bootstrap/variables";
+@import "variables";
 
 // body {
 //   font-size: .875rem;
@@ -16,6 +16,13 @@
 
 main {
   margin-left: $menu-left-width;
+}
+
+.page-header {
+  color: $white;
+  padding: $spacer;
+  margin-left: $menu-left-width;
+  background-color: $primary;
 }
 
 .sidebar {

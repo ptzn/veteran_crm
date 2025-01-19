@@ -29,6 +29,11 @@
   </head>
 
   <body>
+    <div class="page-header sticky-top">
+      <div class="d-flex justify-content-end">
+        <div><%= Current.user.email_address %></div>
+      </div>
+    </div>
     <%= render 'shared/menu' %>
     <main role="main" class="col-9 pt-3 px-4">
       <%# TODO: check it for login form %>
