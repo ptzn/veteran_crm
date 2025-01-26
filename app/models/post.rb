@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  include PgSearch::Model
+
   has_many_attached :attachments do |attachment|
     attachment.variant :thumb, resize_to_limit: [300, 300] # preprocessed: true
     attachment.variant :xthumb, resize_to_limit: [100, 100] # preprocessed: true
@@ -6,6 +8,8 @@ class Post < ApplicationRecord
   end
 
   has_many :telegram_responses, dependent: :delete_all
+
+  pg_search_scope :search, against: :body
 
   scope :not_draft, -> { where(draft: false) }
   scope :unpublished, -> { where(published_at: nil) }

@@ -3,6 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.page(params[:page])
+    @posts = @posts.search(params[:q]) if params[:q].present?
   end
 
   def show

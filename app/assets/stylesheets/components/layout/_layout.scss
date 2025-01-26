@@ -21,7 +21,6 @@ main {
 .page-header {
   color: $white;
   padding: $spacer;
-  margin-left: $menu-left-width;
   background-color: $primary;
 }
 
@@ -31,7 +30,7 @@ main {
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding: 0;
+  padding: 75px 0;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   width: $menu-left-width;
 
