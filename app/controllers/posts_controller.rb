@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  layout false, only: :show
+
   before_action :load_post, except: %i{index new create}
 
   def index

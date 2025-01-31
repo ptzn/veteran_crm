@@ -4,3 +4,9 @@ import "@hotwired/turbo-rails"
 import "controllers"
 
 import "bootstrap"
+
+import RemoteModal from 'components/remote-modal'
+
+(function() {
+  RemoteModal.init()
+})()

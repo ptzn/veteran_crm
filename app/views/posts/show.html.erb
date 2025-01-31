@@ -1,10 +1,20 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @post %>
-
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-
-  <%= button_to "Destroy this post", @post, method: :delete %>
+<div class="modal-dialog modal-dialog-remote">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Post</h5>
+      <!-- <button type="button" class="close" aria-label="Close" data-dismiss="modal">X</button> -->
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <%- if @post.attachments.attached? %>
+          <div class="col-6">
+            <%- @post.attachments.each do |attachment| %>
+              <%= image_tag attachment.variant(:thumb), class: "rounded m-2" %>
+            <%- end %>
+          </div>
+        <%- end %>
+        <div class="col-6"><%= @post.body %></div>
+      </div>
+    </div>
+  </div>
 </div>

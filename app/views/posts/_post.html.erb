@@ -12,9 +12,8 @@
   </td>
   <td><%= post.body.truncate(50) %></td>
   <td>
-    <%= link_to "Show", post %> |
+    <%= link_to "Show", post, class: 'remote-modal', 'data-target' => 'post' %> |
     <%= link_to 'Edit', edit_post_path(post) %> |
-    <!-- <%= link_to "Destroy", post, method: :delete, data: {turbo_confirm: 'Are you sure?'} %> -->
     <%= link_to "Destroy", post, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
   </td>
 </tr>
