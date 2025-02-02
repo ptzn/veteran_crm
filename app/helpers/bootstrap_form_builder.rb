@@ -1,10 +1,10 @@
 class BootstrapFormBuilder < ActionView::Helpers::FormBuilder
   %w(text_field email_field password_field text_area file_field).each do |selector|
     class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
-      def #{selector}(method, options = {})
-        options.reverse_merge!(autocomplete: 'off')
-        super(method, insert_class('form-control', options))
-      end
+      def #{selector}(method, options = {})                   # def text_field(method, options = {})
+        options.reverse_merge!(autocomplete: 'off')           # def text_field(method, options = {})
+        super(method, insert_class('form-control', options))  #  super(method, insert_class("form-control", options))
+      end                                                     # end
     RUBY_EVAL
   end
 

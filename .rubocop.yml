@@ -1,8 +1,519 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+# some examples
+# https://github.com/spree/spree/blob/master/.rubocop.yml
+# https://github.com/BBC-News/rubocop-config/blob/master/.rubocop.yml
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-factory_bot
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "scripts/**/*"
+    - "node_modules/**/*"
+    - "Guardfile"
+
+# Do not suppress exceptions.
+Lint/SuppressedException:
+  AllowComments: true
+Lint/UnusedMethodArgument:
+  AllowUnusedKeywordArguments: true
+Lint/UnusedBlockArgument:
+  Exclude:
+    - "spec/**/*"
+Lint/UselessAssignment:
+  Exclude:
+    - "spec/**/*"
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+# Call super to initialize state of the parent class
+Lint/MissingSuper:
+  Enabled: false
+
+Lint/AmbiguousOperatorPrecedence: # Wrap expressions with varying precedence with parentheses to avoid ambiguity. e.g. 7 * 60 + 15
+  Enabled: false
+
+Lint/EmptyBlock:
+  Enabled: false
+
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: false
+
+Lint/DuplicateBranch:
+  Enabled: false
+
+# Do not prefix writer method names with set_
+Naming/AccessorMethodName:
+  Enabled: false
+# Rename have_value? to value?. (https://rubystyle.guide#bool-methods-qmark)
+Naming/PredicateName:
+  Enabled: false
+# Memoized variable @filter does not match method name load_filter. Use @load_filter instead.
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+# Use meaningful heredoc delimiters
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+# Method parameter must be at least 3 characters long
+Naming/MethodParameterName:
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Naming/BlockForwarding:
+  Enabled: false
+
+# Method has too many lines.
+Metrics/MethodLength:
+  Enabled: false
+
+# Class has too many lines
+Metrics/ClassLength:
+  Max: 500
+
+# Cyclomatic complexity for call is too high. ???
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+# Assignment Branch Condition size for call is too high ???
+Metrics/AbcSize:
+  Enabled: false
+
+# Perceived complexity for call is too high ???
+# https://rubocop.readthedocs.io/en/latest/cops_metrics/#metricsperceivedcomplexity
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# Block has too many lines
+Metrics/BlockLength:
+  Enabled: false
+
+# Module has too many lines.
+# because ActiveSupport::Concern.included block can have many
+Metrics/ModuleLength:
+  Enabled: false
+
+# Avoid parameter lists longer than 5 parameters
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
+Metrics/BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#three-is-the-number-thou-shalt-count'
+  Enabled: true
+  Max: 4
+
+Layout:
+  Exclude:
+    - "spec/**/*"
+
+
+# Align the elements of a hash literal if they span more than one line.
+#   trackable: @trackable, sub_trackable: @sub_trackable)
+Layout/HashAlignment:
+  Enabled: false
+
+#  Space inside { missing.
+#  source: {pointer: "/data/attributes/#{field}"},
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+# Extra empty line detected at module body beginning.
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Extra empty line detected before the rescue.
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: false
+
+# Align else with if.
+Layout/ElseAlignment:
+  Enabled: false
+
+# ??? https://rubocop.readthedocs.io/en/latest/cops_layout/#layoutdotposition
+Layout/DotPosition:
+  Enabled: false
+
+#  Use 2 spaces for indentation in a hash, relative to the first position after the preceding left parenthesis. ???
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+# https://rubocop.readthedocs.io/en/latest/cops_layout/#layoutendalignment
+Layout/EndAlignment:
+  Enabled: false
+
+# Indent the first parameter one step more than the start of the previous line. ???
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+# Closing method call brace must be on the line after the last argument when opening brace is on a separate line from the first argument. ???
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+# Space between { and | missing. ???
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+
+# Indent when as deep as case. ???
+Layout/CaseIndentation:
+  Enabled: false
+
+# Align the operands of a condition in an if statement spanning multiple lines. ??
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+# ??? https://rubocop.readthedocs.io/en/latest/cops_layout/#layoutindentationwidth
+Layout/IndentationWidth:
+  Enabled: false
+
+# Inconsistent indentation detected. https://rubocop.readthedocs.io/en/latest/cops_layout/#layoutindentationconsistency ???
+Layout/IndentationConsistency:
+  Enabled: false
+
+Layout/ArgumentAlignment:
+  Enabled: false
+
+# Extra empty line detected at class body end. ???
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# ???
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+# Space inside parentheses detected. ???
+Layout/SpaceInsideParens:
+  Enabled: false
+
+# Space missing to the left of {. ???
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+
+# Extra blank line detected.
+Layout/EmptyLines:
+  Enabled: false
+
+# Line is too long.
+Layout/LineLength:
+  Enabled: false
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Style:
+  Exclude:
+    - "spec/**/*"
+
+# Use nested module/class definitions instead of compact style.
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Prefer single-quoted strings when you don't need string interpolation or special symbols.
+Style/StringLiterals:
+  Enabled: false
+
+# Do not use parentheses for method calls with no arguments. - find('.selectize-dropdown .option').click()
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: false
+
+# Missing magic comment # frozen_string_literal: true ???
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Do not use block comments.
+Style/BlockComments:
+  Enabled: false
+
+# Favor modifier if usage when having a single-line body. Another good alternative is the usage of control flow &&/||
+Style/IfUnlessModifier:
+  Enabled: false
+
+# Convert if nested inside else to elsif.
+Style/IfInsideElse:
+  Enabled: false
+
+# Use a guard clause instead of wrapping the code inside a conditional expression.
+Style/GuardClause:
+  Enabled: false
+
+# Missing top-level class documentation comment.
+Style/Documentation:
+  Enabled: false
+
+# Avoid rescuing without specifying an error class.
+Style/RescueStandardError:
+  Enabled: false
+
+# Style/ModuleFunction: Use module_function instead of extend self.
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
+# Avoid the use of Perl-style backrefs.
+Style/PerlBackrefs:
+  Enabled: false
+
+# Use @xxx.zero? instead of @xxx == 0.
+Style/NumericPredicate:
+  Enabled: false
+
+# Use %i or %I for an array of symbols.
+Style/SymbolArray:
+  Enabled: false
+
+# Put empty method definitions on a single line.
+Style/EmptyMethod:
+  Enabled: false
+
+# %w-literals should be delimited by [ and ] ???
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+# Redundant else-clause. (allow else nil)
+Style/EmptyElse:
+  EnforcedStyle: empty
+
+# Redundant return detected.
+Style/RedundantReturn:
+  Enabled: false
+
+# Redundant self detected. ???
+Style/RedundantSelf:
+  Enabled: false
+
+# Use && instead of and. https://github.com/rubocop-hq/ruby-style-guide/#no-and-or-or ???
+Style/AndOr:
+  Enabled: false
+
+# Avoid comma after the last parameter of a method call.
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+# Enforce -> syntax instead of lambda
+Style/Lambda:
+  EnforcedStyle: literal
+
+# Do not place comments on the same line as the def keyword.
+Style/CommentedKeyword:
+  Enabled: false
+
+# Avoid comma after the last item of a hash.
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+# Favor format over String#%.
+Style/FormatString:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+# Avoid comma after the last item of an array.
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+# Avoid comparing a variable with multiple items in a conditional, use Array#include? instead. if v == '1' || v == true
+Style/MultipleComparison:
+  Enabled: false
+
+# Prefer annotated tokens (like %<foo>s) over unannotated tokens (like %s).
+Style/FormatStringToken:
+  Enabled: false
+
+# Use the return of the conditional for variable assignment and comparison
+Style/ConditionalAssignment:
+  Enabled: false
+
+# Gems should be sorted in an alphabetical order within their section of the Gemfile
+Bundler/OrderedGems:
+  Enabled: false
+
+# Use !empty? instead of length > 0
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+# Prefer the use of the nil? predicate.
+Style/NilComparison:
+  Enabled: false
+
+# Style/SafeNavigation: Use safe navigation (&.) instead of checking if an object exists before calling the method
+# disabled to ignore: @mailer && @mailer.call(recipient, notification).deliver_later
+# when I need to check only first var
+Style/SafeNavigation:
+  Enabled: false
+
+# Avoid the use of double negation (!!)
+Style/DoubleNegation:
+  Enabled: false
+
+# Use next to skip iteration.
+Style/Next:
+  Enabled: false
+
+Style/SpecialGlobalVars:
+  Enabled: false
+
+# Prefer $ERROR_INFO from the stdlib 'English' module (don't forget to require it) over $!.
+Style/HashTransformValues:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+# 21610 -> 21_610. Use underscores(_) as thousands separator and separate every 3 digits with them.
+Style/NumericLiterals:
+  Enabled: false
+
+# Wrap hash in { and }.
+Style/HashAsLastArrayItem:
+  Enabled: false
+
+# Redundant assignment before returning detected.
+Style/RedundantAssignment:
+  Enabled: false
+
+# Use keyword arguments when defining method with boolean argument def suppress(yes = true)
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+# Consider merging nested conditions into outer if conditions. (if in if)
+Style/SoleNestedConditional:
+  Enabled: false
+
+# Place optional keyword parameters at the end of the parameters list.
+Style/KeywordParametersOrder:
+  Enabled: false
+
+# need ruby 2.7 - Prefer ary[n..] over ary[n..-1].
+Style/SlicingWithRange:
+  Enabled: false
+
+# Group together all attr_reader attributes
+Style/AccessorGrouping:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Style/YodaCondition:
+  Enabled: false
+
+# Avoid using increment! because it skips validations
+Rails/SkipsModelValidations:
+  Enabled: false
+
+# Do not use instance variables in helpers
+Rails/HelperInstanceVariable:
+  Enabled: false
+
+# Enum defined as an array found in enum declaration. Use hash syntax instead.
+Rails/EnumHash:
+  Enabled: false
+
+Rails/FilePath:
+  Enabled: false
+
+# allow has_and_belongs_to_many
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+# Use delegate to define delegations.
+Rails/Delegate:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+
+Rails/ContentTag:
+  Enabled: false
+
+Rails/WhereExists:
+  Enabled: false
+
+# Use find_each instead of each
+Rails/FindEach:
+  Enabled: false
+
+# !FALSE.include?(row["Taxable"]) - Use .exclude? and remove the negation part.
+Rails/NegateInclude:
+  Enabled: false
+
+Rails/Pluck: # disabled because it false positive
+  Enabled: false
+
+Rails/EagerEvaluationLogMessage: # Pass a block to Rails.logger.debug.
+  Enabled: false
+
+Rails/I18nLocaleTexts: # Move locale texts to the locale files in the config/locales directory.
+  Enabled: false
+
+# off because turbolinks and custom js flash handlers
+Rails/ActionControllerFlashBeforeRender:
+  Enabled: false
+
+# Configuration parameters: ExpectedOrder, Include.
+# ExpectedOrder: index, show, new, edit, create, update, destroy
+# Include: app/controllers/**/*.rb
+Rails/ActionOrder:
+  Enabled: false
+
+Rails/PluralizationGrammar:
+  Exclude:
+    - "spec/**/*"
+
+# Prefer :not_found over 404 to define HTTP status code
+Rails/HttpStatus:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+
+Security/MarshalLoad:
+  Exclude:
+    - "spec/**/*"
+
+FactoryBot/AttributeDefinedStatically:
+  Enabled: false
+FactoryBot/FactoryAssociationWithStrategy: # Use an implicit, explicit or inline definition instead of hard coding a strategy for setting association within factory. e.g. reviewable { create :appointment, account: account, customer: customer }
+  Enabled: false
+
+# Configuration parameters: Include, EnforcedStyle, NonImplicitAssociationMethodNames.
+# Include: spec/factories.rb, spec/factories/**/*.rb, features/support/factories/**/*.rb
+# SupportedStyles: explicit, implicit
+FactoryBot/AssociationStyle:
+  Enabled: false
+
+FactoryBot/CreateList: # Prefer create_list, e.g. [create(:user)]
+  Enabled: false
+
+Performance/FixedSize: # Do not compute the size of statically sized objects.
+  Enabled: false
+# Convert numeric literal to string and pass it to BigDecimal, e.g. 70.4.to_d
+Performance/BigDecimalWithNumericArgument:
+  Enabled: false
+
